@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Classes</title>
+</head>
+<body>
+
+  <h2>Examples of how to do different things in classes</h2>
+
+  <script type="text/javascript">
+
+    // Basic example
+    class Rectangle {
+      constructor(width, height, colour) { // Sets up our object
+        // Constructor is only ran once when the object is being created
+        this.width = width
+        this.height = height
+        this.colour = colour
+      }
+
+      // Instance methods
+      getArea() {
+        return this.width * this.height;
+      }
+
+      printDesc() {
+        console.log(`I am a rectangle with a of: ${this.width} x ${this.height} and my colour is: ${this.colour}`)
+      }
+    }
+
+    let myRectangle1 = new Rectangle(3, 5, 'red');
+    let myRectangle2 = new Rectangle(10, 6, 'blue');
+
+    // Getters and setters example
+    class Square {
+      constructor(size) {
+        this.width = size;
+        this.height = size;
+        this.numOfGets = 0;
+      }
+
+      // Getter for the area
+      get area() {
+        this.numOfGets++;
+        return this.width * this.height;
+      }
+
+      // Setter
+      set area (area) {
+        this.width = Math.sqrt(area);
+        this.height = this.width;
+      }
+    }
+
+    let square1 = new Square(22)
+    square1.area = 25; // Will change the width and height of the square1 object
+
+    // Static methods example
+    class Triangle {
+      constructor(size) {
+        this.width = size;
+        this.height = size
+      }
+
+      static equals(a, b) {
+        let compareShapes = a.width * a.height === b.width * b.height
+        console.log('Comparing two classes', compareShapes)
+        return compareShapes
+      }
+
+      static isValidDimensions(width, height) {
+        return width === height;
+      }
+    }
+    let triangle1 = new Triangle(8)
+    let triangle2 = new Triangle(8)
+
+    // Static methods are called from the actual class itself
+    Triangle.equals(triangle1, triangle2);
+
+    // Inheritance and Extends
+    class Person {
+      constructor(name, age) {
+        this.name = name;
+        this.age = age;
+      }
+
+      describe() {
+        console.log(`I am ${this.name} and I am ${this.age} years old.`)
+      }
+
+    }
+
+    //  Takes in attributes of Person (name, age)
+    class Programmer extends Person {
+      constructor(name, age, language) {
+        super(name, age) // Call the parent constructor
+
+        this.language = language;
+      }
+
+      code() {
+        console.log(`${this.name} is programming in ${this.language}`);
+      }
+    }
+
+    let person1 = new Person('John', 85);
+    let programmer1 = new Programmer('Aidan', 28, 'JavaScript');
+
+    const programmers = [
+      new Programmer("Ben", 28, "Python"),
+      new Programmer("Jeff", 23, "C++")
+    ]
+
+    const developSoftware = (programmers) => {
+      programmers.forEach(programmer => programmer.code())
+    }
+
+    developSoftware(programmers);
+
+    // Polymorphism
+    class Animal {
+      constructor(name) {
+        this.name = name;
+      }
+      makeSound () {
+        console.log(`Generic noises`)
+      }
+    }
+
+    class Lion extends Animal {
+      constructor(name) {
+        super(name); // Call the constructor for the parent
+      }
+
+      makeSound() { // Polymorphism, we're updating the makeSound method for our child class 
+        console.log('Roaaaaaaaaaaar!!!')
+      }
+    }
+
+    const a1 = new Animal('Lion');
+    const lion = new Lion('Jeff');
+
+    // Making a class that changes the DOM
+  </script>
+
+  <ul id="myList">
+    <!-- To be filled by our JS class -->
+  </ul>
+
+  <script src="ListBinding.js"></script>
+  <script type="text/javascript">
+    const myList = document.getElementById('myList')
+    const listBinding = new ListBinding(myList);
+  </script>
+  
+</body>
+</html>
